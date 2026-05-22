@@ -17,19 +17,19 @@ WORKDIR /go/src/github.com/gophish/gophish
 COPY --from=build-js /build/ ./
 
 # Stripping X-Gophish 
-RUN sed -i 's/X-Gophish-Contact/X-Contact/g' models/email_request_test.go
-RUN sed -i 's/X-Gophish-Contact/X-Contact/g' models/maillog.go
-RUN sed -i 's/X-Gophish-Contact/X-Contact/g' models/maillog_test.go
-RUN sed -i 's/X-Gophish-Contact/X-Contact/g' models/email_request.go
+RUN sed -i 's/X-Gophish-Contact/X-ContactSoftware/g' models/email_request_test.go
+RUN sed -i 's/X-Gophish-Contact/X-ContactSoftware/g' models/maillog.go
+RUN sed -i 's/X-Gophish-Contact/X-ContactSoftware/g' models/maillog_test.go
+RUN sed -i 's/X-Gophish-Contact/X-ContactSoftware/g' models/email_request.go
 
 # Stripping X-Gophish-Signature
-RUN sed -i 's/X-Gophish-Signature/X-Signature/g' webhook/webhook.go
+RUN sed -i 's/X-Gophish-Signature/X-SignatureSoftware/g' webhook/webhook.go
 
 # Changing servername
 RUN sed -i 's/const ServerName = "gophish"/const ServerName = "IGNORE"/' config/config.go
 
 # Changing rid value
-RUN sed -i 's/const RecipientParameter = "rid"/const RecipientParameter = "keyname"/g' models/campaign.go
+RUN sed -i 's/const RecipientParameter = "rid"/const RecipientParameter = "softwareToken"/g' models/campaign.go
 
 # Copying in custom 404 handler
 COPY ./files/phish.go ./controllers/phish.go
